@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Results from "./Results";
 import useBreedList from "./useBreedList";
 const ANIMALS = ["bird", "cat", "dog", "rabbit", "reptile"];
+import Form from "./Form";
 
 const SearchParams = () => {
   const [pets, setPets] = useState([]);
@@ -26,65 +27,28 @@ const SearchParams = () => {
 
   return (
     <div className="search-params">
-      <form
-        onSubmit={(e) => {
+      <Form
+        handleSubmit={(e) => {
           e.preventDefault();
           requestPets();
         }}
-      >
-        <label htmlFor="location">
-          Location
-          <input
-            id="location"
-            value={location}
-            placeholder="Location"
-            onChange={(e) => setLocation(e.target.value)}
-          />
-        </label>
-
-        <label htmlFor="animal">
-          Animal
-          <select
-            id="animal"
-            value={animal}
-            onChange={(e) => {
-              setAnimal(e.target.value);
-              setBreed("");
-            }}
-            onBlur={(e) => {
-              setAnimal(e.target.value);
-              setBreed("");
-            }}
-          >
-            <option />
-            {ANIMALS.map((animal) => (
-              <option key={animal} value={animal}>
-                {animal}
-              </option>
-            ))}
-          </select>
-        </label>
-
-        <label htmlFor="breed">
-          Breed
-          <select
-            disabled={!breeds.length}
-            id="breed"
-            value={breed}
-            onChange={(e) => setBreed(e.target.value)}
-            onBlur={(e) => setBreed(e.target.value)}
-          >
-            <option />
-            {breeds.map((breed) => (
-              <option key={breed} value={breed}>
-                {breed}
-              </option>
-            ))}
-          </select>
-        </label>
-
-        <button>Submit</button>
-      </form>
+        location={location}
+        handleLocationChange={(e) => setLocation(e.target.value)}
+        animal={animal}
+        animals={ANIMALS}
+        breed={breed}
+        breeds={breeds}
+        handleAnimalChange={(e) => {
+          setAnimal(e.target.value);
+          setBreed("");
+        }}
+        handleAnimalBlur={(e) => {
+          setAnimal(e.target.value);
+          setBreed("");
+        }}
+        handleBreedChange={(e) => setBreed(e.target.value)}
+        handleBreedBlur={(e) => setBreed(e.target.value)}
+      />
       <Results pets={pets} />
     </div>
   );
