@@ -2,14 +2,8 @@ import React from 'react';
 
 const Form = ({
   handleSubmit,
-  handleLocationChange,
   handleAnimalChange,
   handleAnimalBlur,
-  handleBreedChange,
-  handleBreedBlur,
-  location,
-  animal,
-  breed,
   animals,
   breeds
 }) => {
@@ -19,9 +13,8 @@ const Form = ({
         Location
         <input
           id="location"
-          value={location}
+          name="location"
           placeholder="Location"
-          onChange={handleLocationChange}
         />
       </label>
 
@@ -29,7 +22,7 @@ const Form = ({
         Animal
         <select
           id="animal"
-          value={animal}
+          name="animal"
           onChange={handleAnimalChange}
           onBlur={handleAnimalBlur}
         >
@@ -47,9 +40,7 @@ const Form = ({
         <select
           disabled={!breeds.length}
           id="breed"
-          value={breed}
-          onChange={handleBreedChange}
-          onBlur={handleBreedBlur}
+          name="breed"
         >
           <option />
           {breeds.map((breed) => (

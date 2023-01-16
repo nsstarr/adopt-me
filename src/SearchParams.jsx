@@ -1,53 +1,45 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useQuery } from '@tanstack/react-query'
 import Results from "./Results";
 import useBreedList from "./useBreedList";
-const ANIMALS = ["bird", "cat", "dog", "rabbit", "reptile"];
+import fetchSearch from "./fetchSearch";
 import Form from "./Form";
+const ANIMALS = ["bird", "cat", "dog", "rabbit", "reptile"];
 
 const SearchParams = () => {
-  const [pets, setPets] = useState([]);
-  const [location, setLocation] = useState("");
+  const [requestParams, setRequestParams] = useState({
+    location:"",
+    animal:"",
+    breed:"",
+  })
   const [animal, setAnimal] = useState("");
-  const [breed, setBreed] = useState("");
   const [breeds] = useBreedList(animal);
 
-  useEffect(() => {
-    requestPets();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  async function requestPets() {
-    const res = await fetch(
-      `http://pets-v2.dev-apis.com/pets?animal=${animal}&location=${location}&breed=${breed}`
-    );
-    const json = await res.json();
-
-    setPets(json.pets);
-  }
+  const results = useQuery(["search", requestParams], fetchSearch)
+  const pets = results?.data?.pets ?? [];
 
   return (
     <div className="search-params">
       <Form
         handleSubmit={(e) => {
           e.preventDefault();
-          requestPets();
+          const formData = new FormData(e.target); //Browser Form API
+          const obj = {
+            animal: formData.get("animal") ?? "",
+            breed: formData.get("breed") ?? "",
+            location: formData.get("location") ?? "",
+          };
+          setRequestParams(obj)
         }}
-        location={location}
-        handleLocationChange={(e) => setLocation(e.target.value)}
-        animal={animal}
         animals={ANIMALS}
-        breed={breed}
         breeds={breeds}
         handleAnimalChange={(e) => {
           setAnimal(e.target.value);
-          setBreed("");
         }}
         handleAnimalBlur={(e) => {
           setAnimal(e.target.value);
-          setBreed("");
         }}
-        handleBreedChange={(e) => setBreed(e.target.value)}
-        handleBreedBlur={(e) => setBreed(e.target.value)}
       />
       <Results pets={pets} />
     </div>
