@@ -1,4 +1,6 @@
 import React from 'react';
+import { useContext } from 'react';
+import AdoptedPetContext from './AdoptedPetContext';
 
 const Form = ({
   handleSubmit,
@@ -7,8 +9,16 @@ const Form = ({
   animals,
   breeds
 }) => {
+  const [adoptedPet] = useContext(AdoptedPetContext)
   return (
     <form onSubmit={handleSubmit}>
+    {
+      adoptedPet ? (
+        <div className='pet image-container'>
+          <img src={adoptedPet.images[0]} alt={adoptedPet.name}/>
+        </div>
+      ) : null
+    }
       <label htmlFor="location">
         Location
         <input
