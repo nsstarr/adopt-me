@@ -5,6 +5,7 @@ import Results from "./Results";
 import useBreedList from "./useBreedList";
 import fetchSearch from "./fetchSearch";
 import Form from "./Form";
+import Pagination from "./Pagination";
 const ANIMALS = ["bird", "cat", "dog", "rabbit", "reptile"];
 
 const SearchParams = () => {
@@ -15,9 +16,16 @@ const SearchParams = () => {
   })
   const [animal, setAnimal] = useState("");
   const [breeds] = useBreedList(animal);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [recordsPerPage] = useState(5);
 
   const results = useQuery(["search", requestParams], fetchSearch)
   const pets = results?.data?.pets ?? [];
+
+  const indexOfLastRecord = currentPage * recordsPerPage;
+  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+  const currentRecords = pets.slice(indexOfFirstRecord, indexOfLastRecord);
+  const nPages = Math.ceil(pets.length / recordsPerPage);
 
   return (
     <div className="search-params">
@@ -30,7 +38,7 @@ const SearchParams = () => {
             breed: formData.get("breed") ?? "",
             location: formData.get("location") ?? "",
           };
-          setRequestParams(obj)
+          setRequestParams(obj);
         }}
         animals={ANIMALS}
         breeds={breeds}
@@ -41,7 +49,12 @@ const SearchParams = () => {
           setAnimal(e.target.value);
         }}
       />
-      <Results pets={pets} />
+      <Results pets={currentRecords} />
+      <Pagination
+        nPages={nPages}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </div>
   );
 };
