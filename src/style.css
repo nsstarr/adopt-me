@@ -202,6 +202,17 @@ header {
   cursor: pointer;
 }
 
+/* DARK MODE */
+[data-theme='dark'] div, 
+[data-theme='dark'] form, 
+[data-theme='dark'] form > label, 
+[data-theme='dark'] h1 {
+  background-color: #1E1E24;
+  color: #faeff0;
+}
+[data-theme='dark'] body {
+ background-image: url(http://pets-images.dev-apis.com/pets/wallpaperB.jpg);
+}
 #modal a {
   display: inline-block;
   margin-right: 15px;
