@@ -20,7 +20,7 @@ const App = () => {
   const adoptedPetHook = useState(null);
   return (
     <div
-      className="p-0 m-0"
+      className="m-0 p-0"
       style={{
         background: "url(http://pets-images.dev-apis.com/pets/wallpaperC.jpg)",
       }}
