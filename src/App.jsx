@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import { Link, BrowserRouter, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import React from "react";
 import AdoptedPetContext from "./AdoptedPetContext";
-import SearchParams from "./SearchParams";
-import Details from "./Details";
+
+const Details = lazy(() => import("./Details"));
+const SearchParams = lazy(() => import("./SearchParams.jsx"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,6 +28,9 @@ const App = () => {
     >
       <BrowserRouter>
         <QueryClientProvider client={queryClient}>
+        <Suspense fallback={<div className="loading-pane">
+          <h2 className="loader">🌀</h2>
+        </div>}>
           <AdoptedPetContext.Provider value={adoptedPetHook}>
             <header className="mb-10 w-full bg-gradient-to-b from-yellow-400 via-orange-500 to-red-500 p-7 text-center">
               <Link className="text-6xl text-white hover:text-gray-200" to="/">
@@ -37,7 +41,7 @@ const App = () => {
               <Route path="/details/:id" element={<Details />} />
               <Route path="/" element={<SearchParams />} />
             </Routes>
-          </AdoptedPetContext.Provider>
+          </AdoptedPetContext.Provider></Suspense>
         </QueryClientProvider>
       </BrowserRouter>
     </div>
