@@ -27,7 +27,7 @@ const Form = ({
           id="location"
           name="location"
           placeholder="Location"
-          className="mb-5 block w-60"
+          className="search-input"
         />
       </label>
 
@@ -38,7 +38,7 @@ const Form = ({
           name="animal"
           onChange={handleAnimalChange}
           onBlur={handleAnimalBlur}
-          className="mb-5 block w-60"
+          className="search-input"
         >
           <option />
           {animals.map((animal) => (
@@ -52,7 +52,7 @@ const Form = ({
       <label htmlFor="breed">
         Breed
         <select
-          className="mb-5 block w-60 disabled:opacity-50"
+          className="search-input grayed-out-disabled"
           disabled={!breeds.length}
           id="breed"
           name="breed"
@@ -66,7 +66,9 @@ const Form = ({
         </select>
       </label>
 
-      <button className="rounded px-6 py-2 color text-white hover:opacity-50 border-none bg-orange-500">Submit</button>
+      <button className="color rounded border-none bg-orange-500 px-6 py-2 text-white hover:opacity-50">
+        Submit
+      </button>
     </form>
   );
 };
