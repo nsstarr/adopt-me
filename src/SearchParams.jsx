@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useLocalStorage from "use-local-storage";
 import Results from "./Results";
@@ -24,7 +24,7 @@ const SearchParams = () => {
     "theme",
     defaultDark ? "dark" : "search-params"
   );
-
+  const [isPending, startTransition] = useTransition();
 
   const results = useQuery(["search", requestParams], fetchSearch);
   const pets = results?.data?.pets ?? [];
@@ -33,16 +33,18 @@ const SearchParams = () => {
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
   const currentRecords = pets.slice(indexOfFirstRecord, indexOfLastRecord);
   const nPages = Math.ceil(pets.length / recordsPerPage);
-  
+
   const switchTheme = () => {
-    const newTheme = theme === 'search-params' ? 'dark' : 'search-params';
-    setTheme(newTheme)
-  }
+    const newTheme = theme === "search-params" ? "dark" : "search-params";
+    setTheme(newTheme);
+  };
 
   return (
     <>
       <div className="search-params my-0 mx-auto w-11/12" data-theme={theme}>
-      <button onClick={switchTheme}>Switch to {theme === 'search-params' ? 'Dark' : 'Light'} Theme</button>
+        <button onClick={switchTheme}>
+          Switch to {theme === "search-params" ? "Dark" : "Light"} Theme
+        </button>
         <Form
           handleSubmit={(e) => {
             e.preventDefault();
@@ -52,7 +54,9 @@ const SearchParams = () => {
               breed: formData.get("breed") ?? "",
               location: formData.get("location") ?? "",
             };
-            setRequestParams(obj);
+            startTransition(() => {
+              setRequestParams(obj);
+            });
           }}
           animals={ANIMALS}
           breeds={breeds}
@@ -62,6 +66,7 @@ const SearchParams = () => {
           handleAnimalBlur={(e) => {
             setAnimal(e.target.value);
           }}
+          isPending={isPending}
         />
         <Results pets={currentRecords} />
       </div>
