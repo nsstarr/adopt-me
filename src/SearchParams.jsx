@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useDeferredValue, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useLocalStorage from "use-local-storage";
 import Results from "./Results";
@@ -28,6 +28,8 @@ const SearchParams = () => {
 
   const results = useQuery(["search", requestParams], fetchSearch);
   const pets = results?.data?.pets ?? [];
+  const deferredPets = useDeferredValue(pets)
+  const renderedPets = useMemo(() => <Results pets={deferredPets}/>, [deferredPets])
 
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
@@ -63,7 +65,7 @@ const SearchParams = () => {
             setAnimal(e.target.value);
           }}
         />
-        <Results pets={currentRecords} />
+        {renderedPets}
       </div>
       <Pagination
         nPages={nPages}
