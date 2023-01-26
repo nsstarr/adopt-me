@@ -6,7 +6,6 @@ import { useState, useContext, lazy } from "react";
 import AdoptedPetContext from "./AdoptedPetContext";
 import Carousel from "./Carousel";
 import fetchPet from "./fetchPet";
-import { PetAPIResponse } from './APIResponsesTypes'
 
 const Modal = lazy(() => import ('./Modal'))
 
@@ -21,7 +20,7 @@ const Details = () => {
     throw new Error('Need an id')
   }
 
-  const results = useQuery<PetAPIResponse>(["details", id], fetchPet);
+  const results = useQuery(["details", id], fetchPet);
 
   if (results.isLoading) {
     return (

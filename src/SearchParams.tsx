@@ -1,3 +1,4 @@
+import { Animal } from "./APIResponsesTypes";
 import React from "react";
 import { useState, useTransition } from "react";
 import { useQuery } from "@tanstack/react-query";
@@ -7,15 +8,15 @@ import useBreedList from "./useBreedList";
 import fetchSearch from "./fetchSearch";
 import Form from "./Form";
 import Pagination from "./Pagination";
-const ANIMALS = ["bird", "cat", "dog", "rabbit", "reptile"];
+const ANIMALS: Animal[] = ["bird", "cat", "dog", "rabbit", "reptile"];
 
 const SearchParams = () => {
   const [requestParams, setRequestParams] = useState({
     location: "",
-    animal: "",
+    animal: "" as Animal,
     breed: "",
   });
-  const [animal, setAnimal] = useState("");
+  const [animal, setAnimal] = useState("" as Animal);
   const [breeds] = useBreedList(animal);
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage] = useState(5);
@@ -48,11 +49,11 @@ const SearchParams = () => {
         <Form
           handleSubmit={(e) => {
             e.preventDefault();
-            const formData = new FormData(e.target); //Browser Form API
+            const formData = new FormData(e.currentTarget); //Browser Form API
             const obj = {
-              animal: formData.get("animal") ?? "",
-              breed: formData.get("breed") ?? "",
-              location: formData.get("location") ?? "",
+              animal: formData.get("animal")?.toString() ?? ("" as Animal),
+              breed: formData.get("breed")?.toString() ?? ("" as Animal),
+              location: formData.get("location")?.toString() ?? ("" as Animal),
             };
             startTransition(() => {
               setRequestParams(obj);
@@ -61,14 +62,14 @@ const SearchParams = () => {
           animals={ANIMALS}
           breeds={breeds}
           handleAnimalChange={(e) => {
-            setAnimal(e.target.value);
+            setAnimal(e.target.value as Animal);
           }}
           handleAnimalBlur={(e) => {
-            setAnimal(e.target.value);
+            setAnimal(e.target.value as Animal);
           }}
           isPending={isPending}
         />
-        <Results pets={currentRecords} />
+        <Results pets={currentRecords as number} />
       </div>
       <Pagination
         nPages={nPages}

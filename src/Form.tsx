@@ -1,6 +1,7 @@
 import React from "react";
 import { useContext } from "react";
 import AdoptedPetContext from "./AdoptedPetContext";
+import { Animal } from "./APIResponsesTypes";
 
 const Form = ({
   handleSubmit,
