@@ -11,6 +11,6 @@
   }, 
   "include": [
     "file.ts",
-    "./src/"
+    "./src/",
 ],
 }

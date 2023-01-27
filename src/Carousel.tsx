@@ -43,6 +43,7 @@ class Carousel extends Component<IProps> {
               src={photo}
               className={index === active ? "active" : ""}
               alt="animal thumbnail"
+              data-testid={`thumbnail${index}`}
             />
           ))}
         </div>
