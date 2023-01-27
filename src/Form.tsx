@@ -1,5 +1,6 @@
 import React from "react";
 import { useContext } from "react";
+import {useSelector} from 'react-redux';
 import AdoptedPetContext from "./AdoptedPetContext";
 import { Animal } from "./APIResponsesTypes";
 
@@ -11,7 +12,7 @@ const Form = ({
   breeds,
   isPending,
 }) => {
-  const [adoptedPet] = useContext(AdoptedPetContext);
+  const adoptedPet = useSelector((state) => state.adoptedPet.value)
 
   return (
     <form
