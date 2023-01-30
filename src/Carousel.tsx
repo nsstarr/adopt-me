@@ -32,7 +32,7 @@ class Carousel extends Component<IProps> {
 
     return (
       <div className="carousel">
-        <img src={images[active]} alt="animal hero" />
+        <img data-testid="hero" src={images[active]} alt="animal hero" />
         <div className="carousel-smaller">
           {images.map((photo, index) => (
             //eslint-disable-next-line
