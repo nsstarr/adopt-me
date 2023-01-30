@@ -7,4 +7,8 @@ Deployed App: https://adoption-page.netlify.app/
 - React router
 - React query
 - Bootstrap
+- Tailwind
 - Vite
+- Vitest
+- TypeScript
+- Redux Tool Kit
