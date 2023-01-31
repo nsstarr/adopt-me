@@ -11,8 +11,9 @@
     "format": "prettier --write \"src/**/*.{js,jsx}\"",
     "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\" --quiet",
     "typecheck": "tsc --noEmit",
-    "test": "vitest",
-    "test:watch": "vitest --watch"
+    "test": "vitest --run",
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest --coverage"
   },
   "keywords": [],
   "author": "Brian Holt",
@@ -25,6 +26,7 @@
     "@typescript-eslint/eslint-plugin": "^5.40.1",
     "@typescript-eslint/parser": "^5.40.1",
     "@vitejs/plugin-react": "2.1.0",
+    "@vitest/coverage-c8": "^0.28.3",
     "autoprefixer": "^10.4.12",
     "eslint": "8.24.0",
     "eslint-config-prettier": "8.5.0",
