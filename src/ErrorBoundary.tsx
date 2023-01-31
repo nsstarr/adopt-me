@@ -15,7 +15,7 @@ class ErrorBoundary extends Component<{children:ReactElement}> {
     if (this.state.hasError) {
       return (
         <h2>
-          There was an error with this listing.{" "}
+          There was an error with this listing.
           <Link to="/">Click here to go bak to the homepage</Link>
         </h2>
       );
