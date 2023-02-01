@@ -1,14 +1,14 @@
 # Pet Adoption App
-Pet adoption app built following the structure of [Brian Holt](https://github.com/btholt)'s Frontend Masters React course.
+Pet adoption app built following the structure of [Brian Holt](https://github.com/btholt)'s [Intermediate React v5 course](https://react-v8.holt.courses/) on Frontend Masters.
 
 Deployed App: https://adoption-page.netlify.app/
 
 # Technologies used:
+- React
 - React router
 - React query
-- Bootstrap
-- Tailwind
+- TypeScript
 - Vite
 - Vitest
-- TypeScript
 - Redux Tool Kit
+
