@@ -37,9 +37,8 @@ const App = () => {
             }
           >
             <AdoptedPetContext.Provider value={adoptedPetHook}>
-              <header className="mb-10 w-full bg-gradient-to-b from-yellow-400 via-orange-500 to-red-500 p-7 text-center">
+              <header >
                 <Link
-                  className="text-6xl text-white hover:text-gray-200"
                   to="/"
                 >
                   Adopt Me!

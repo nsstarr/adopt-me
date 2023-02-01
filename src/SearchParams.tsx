@@ -42,7 +42,7 @@ const SearchParams = () => {
 
   return (
     <>
-      <div className="search-params my-0 mx-auto w-11/12" data-theme={theme}>
+      <div className="search-params" data-theme={theme}>
         <button onClick={switchTheme}>
           Switch to {theme === "search-params" ? "Dark" : "Light"} Theme
         </button>

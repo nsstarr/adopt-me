@@ -28,7 +28,7 @@ const Pagination = ({ nPages, currentPage, setCurrentPage }) => {
           >
             <a
               onClick={() => setCurrentPage(pgNumber)}
-              className="page-link bg-dark text-light"
+              className="page-link bg-white text-dark"
               href="#"
             >
               {pgNumber}
